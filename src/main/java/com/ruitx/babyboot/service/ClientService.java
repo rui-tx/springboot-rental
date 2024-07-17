@@ -1,10 +1,11 @@
 package com.ruitx.babyboot.service;
 
 import com.ruitx.babyboot.dto.ClientDto;
+import com.ruitx.babyboot.exceptions.ErrorMessage;
+import com.ruitx.babyboot.exceptions.client.ClientNotFoundException;
 import com.ruitx.babyboot.mapper.ClientMapper;
 import com.ruitx.babyboot.model.Client;
 import com.ruitx.babyboot.repository.ClientRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,10 +37,9 @@ public class ClientService {
     }
 
     public ClientDto update(long id, ClientDto client) {
-
         Client clientToUpdate;
         clientToUpdate = this.clientRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Client not found")
+                () -> new ClientNotFoundException(ErrorMessage.CLIENT_NOT_FOUND)
         );
 
         // TODO: Is this the right way to update?
@@ -53,7 +53,7 @@ public class ClientService {
 
     public ClientDto delete(long id) {
         Client clientToDelete = this.clientRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Client not found")
+                () -> new ClientNotFoundException(ErrorMessage.CLIENT_NOT_FOUND)
         );
 
         this.clientRepository.delete(clientToDelete);

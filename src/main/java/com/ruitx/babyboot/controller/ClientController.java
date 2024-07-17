@@ -36,7 +36,6 @@ public class ClientController {
     @PutMapping(path = "/{id}")
     public ResponseEntity<ClientDto> update(@Valid @PathVariable long id, @Valid @RequestBody ClientDto client) {
         ClientDto response = this.clientService.update(id, client);
-        //return response == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(response, HttpStatus.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

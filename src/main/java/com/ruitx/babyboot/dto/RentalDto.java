@@ -9,7 +9,7 @@ public record RentalDto(
         CarDto car,
         @NotNull(message = "Start date is required")
         String startDate,
-        @NotNull(message = "End date is required")
+        
         String endDate
 ) {
 }

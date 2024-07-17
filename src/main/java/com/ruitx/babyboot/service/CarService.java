@@ -1,10 +1,11 @@
 package com.ruitx.babyboot.service;
 
 import com.ruitx.babyboot.dto.CarDto;
+import com.ruitx.babyboot.exceptions.ErrorMessage;
+import com.ruitx.babyboot.exceptions.car.CarNotFoundException;
 import com.ruitx.babyboot.mapper.CarMapper;
 import com.ruitx.babyboot.model.Car;
 import com.ruitx.babyboot.repository.CarRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +39,7 @@ public class CarService {
     public CarDto update(long id, CarDto car) {
         Car carToUpdate;
         carToUpdate = this.carRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Car not found")
+                () -> new CarNotFoundException(ErrorMessage.CAR_NOT_FOUND)
         );
 
         // TODO: Is this the right way to update?
@@ -54,7 +55,7 @@ public class CarService {
 
     public CarDto delete(long id) {
         Car carToDelete = this.carRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Car not found")
+                () -> new CarNotFoundException(ErrorMessage.CAR_NOT_FOUND)
         );
 
         this.carRepository.delete(carToDelete);

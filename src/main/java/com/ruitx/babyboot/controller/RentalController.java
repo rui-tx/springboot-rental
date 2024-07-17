@@ -27,7 +27,6 @@ public class RentalController {
         return new ResponseEntity<>(rentals, HttpStatus.OK);
     }
 
-
     @PostMapping(path = {"", "/"})
     public ResponseEntity<RentalDto> create(@Valid @RequestBody RentalDto rental) {
         RentalDto response = this.rentalService.create(rental);
